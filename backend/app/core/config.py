@@ -3,8 +3,11 @@ from typing import List
 from pydantic_settings import BaseSettings
 
 class Settings(BaseSettings):
-    # Database
-    DATABASE_URL: str = os.getenv("DATABASE_URL", "postgresql+asyncpg://user:password@localhost/legal_intake")
+    # backend/app/core/config.py
+    DATABASE_URL: str = os.getenv(
+        "DATABASE_URL",
+        "postgresql+asyncpg://postgres:postgres@localhost:5432/legal_intake"
+    )
     
     # Security
     SECRET_KEY: str = os.getenv("SECRET_KEY", "your-secret-key")

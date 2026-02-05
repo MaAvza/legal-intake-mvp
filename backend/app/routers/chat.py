@@ -6,6 +6,7 @@ from app.core.database import get_db
 from app.core.dependencies import get_current_user, get_admin_user
 from app.models import ChatMessage, User
 from app.schemas import ChatMessageCreate, ChatMessageResponse
+from sqlalchemy import select, update, text
 
 router = APIRouter(prefix="/chat", tags=["Chat"])
 
@@ -99,16 +100,16 @@ async def get_chat_users(
     db: AsyncSession = Depends(get_db)
 ):
     """Admin only - Get list of users who have sent messages"""
-    query = """
-    SELECT DISTINCT u.id, u.full_name, u.email, 
-           COUNT(cm.id) as message_count,
-           MAX(cm.created_at) as last_message_at
-    FROM users u
-    JOIN chat_messages cm ON u.id = cm.user_id
-    WHERE u.role = 'client'
-    GROUP BY u.id, u.full_name, u.email
-    ORDER BY last_message_at DESC
-    """
+    query = text("""
+        SELECT DISTINCT u.id, u.full_name, u.email,
+               COUNT(cm.id) as message_count,
+               MAX(cm.created_at) as last_message_at
+        FROM users u
+        JOIN chat_messages cm ON u.id = cm.user_id
+        WHERE u.role = 'client'
+        GROUP BY u.id, u.full_name, u.email
+        ORDER BY last_message_at DESC
+    """)
     
     result = await db.execute(query)
     users = [
