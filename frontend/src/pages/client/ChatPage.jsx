@@ -161,7 +161,7 @@ const ChatPage = () => {
                 className="flex-1 border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-primary-500 focus:border-transparent resize-none"
                 placeholder={t('chat.placeholder')}
                 rows={2}
-                onKeyPress={(e) => {
+                onKeyDown={(e) => {
                   if (e.key === 'Enter' && !e.shiftKey) {
                     e.preventDefault()
                     sendMessage(e)

@@ -91,7 +91,7 @@ const TicketForm = () => {
             onChange={handleChange}
             required
             className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-            placeholder="הכנס שם מלא"
+            //placeholder="הכנס שם מלא"
           />
         </div>
 
@@ -106,7 +106,7 @@ const TicketForm = () => {
             onChange={handleChange}
             required
             className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-            placeholder="example@email.com"
+            //placeholder="example@email.com"
           />
         </div>
 
@@ -121,7 +121,7 @@ const TicketForm = () => {
             onChange={handleChange}
             required
             className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-            placeholder="050-1234567"
+            //placeholder="050-1234567"
           />
         </div>
 
@@ -152,7 +152,7 @@ const TicketForm = () => {
             required
             rows={6}
             className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
-            placeholder="תאר את האירוע או הבעיה המשפטית בפירוט..."
+            placeholder="תיאור הפנייה"
           />
         </div>
 

@@ -1,7 +1,9 @@
+// frontend/src/pages/auth/RegisterPage.jsx
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../hooks/useAuth'
+import PasswordInput from '../../components/common/PasswordInput'
 
 const RegisterPage = () => {
   const { t } = useTranslation()
@@ -78,8 +80,7 @@ const RegisterPage = () => {
                 required
                 value={formData.full_name}
                 onChange={handleChange}
-                className="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primary-500 focus:border-primary-500"
-                placeholder="Full Name"
+                className="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 text-gray-900 rounded-md focus:outline-none focus:ring-primary-500 focus:border-primary-500"
               />
             </div>
             
@@ -94,26 +95,18 @@ const RegisterPage = () => {
                 required
                 value={formData.email}
                 onChange={handleChange}
-                className="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primary-500 focus:border-primary-500"
-                placeholder="your@email.com"
+                className="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 text-gray-900 rounded-md focus:outline-none focus:ring-primary-500 focus:border-primary-500"
               />
             </div>
             
-            <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-                {t('auth.password')}
-              </label>
-              <input
-                id="password"
-                name="password"
-                type="password"
-                required
-                value={formData.password}
-                onChange={handleChange}
-                className="mt-1 appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-primary-500 focus:border-primary-500"
-                placeholder="Password"
-              />
-            </div>
+            <PasswordInput
+              value={formData.password}
+              onChange={handleChange}
+              name="password"
+              label={t('auth.password')}
+              showStrength={true}
+              required={true}
+            />
           </div>
 
           <div>

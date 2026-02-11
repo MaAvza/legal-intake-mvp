@@ -1,9 +1,15 @@
+# backend/app/routers/auth.py
 from datetime import timedelta
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 from app.core.database import get_db
-from app.core.security import verify_password, get_password_hash, create_access_token
+from app.core.security import (
+    verify_password, 
+    get_password_hash, 
+    create_access_token,
+    validate_password_strength
+)
 from app.core.dependencies import get_current_user
 from app.core.config import settings
 from app.models import User
@@ -17,6 +23,14 @@ async def register(
     db: AsyncSession = Depends(get_db)
 ):
     """Register a new user"""
+    # Validate password strength
+    is_valid, error_msg = validate_password_strength(user_data.password)
+    if not is_valid:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=error_msg
+        )
+    
     # Check if user already exists
     result = await db.execute(select(User).where(User.email == user_data.email))
     existing_user = result.scalar_one_or_none()
@@ -39,6 +53,16 @@ async def register(
     db.add(user)
     await db.commit()
     await db.refresh(user)
+    
+    # Send welcome email (non-blocking, don't fail if email fails)
+    try:
+        from app.core.email import send_welcome_email
+        await send_welcome_email({
+            "email": user.email,
+            "full_name": user.full_name or "Client"
+        })
+    except Exception as e:
+        print(f"Welcome email failed: {e}")  # Log but don't block registration
     
     return user
 
@@ -81,6 +105,14 @@ async def create_admin_user(
     db: AsyncSession = Depends(get_db)
 ):
     """Create admin user - for initial setup only"""
+    # Validate password strength
+    is_valid, error_msg = validate_password_strength(admin_data.password)
+    if not is_valid:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=error_msg
+        )
+    
     # Check if any admin exists
     result = await db.execute(select(User).where(User.role == "admin"))
     existing_admin = result.scalar_one_or_none()
