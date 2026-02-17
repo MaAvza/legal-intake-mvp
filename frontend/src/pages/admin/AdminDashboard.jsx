@@ -63,7 +63,7 @@ const AdminDashboard = () => {
 
   const StatCard = ({ title, value, color = 'primary' }) => (
     <div className="bg-white rounded-lg shadow p-6">
-      <h3 className="text-sm text-gray-600 mb-2">{title}</h3>
+      <h3 className="text-sm text-primary-600 mb-2">{title}</h3>
       <p className={`text-4xl font-bold text-${color}-600`}>{value}</p>
     </div>
   )
@@ -71,28 +71,28 @@ const AdminDashboard = () => {
   const TicketCard = ({ ticket }) => (
     <div className="bg-white border rounded-lg p-4 hover:shadow-md transition-shadow">
       <div className="flex justify-between items-start mb-2">
-        <h4 className="font-medium text-gray-900">{ticket.client_name}</h4>
+        <h4 className="font-medium text-primary-900">{ticket.client_name}</h4>
         <span className={`px-2 py-1 text-xs rounded-full ${
-          ticket.status === 'New' ? 'bg-red-100 text-red-800' :
+          ticket.status === 'New' ? 'bg-accent-100 text-accent-800' :
           ticket.status === 'Reviewed' ? 'bg-yellow-100 text-yellow-800' :
-          'bg-green-100 text-green-800'
+          'bg-success-100 text-success-800'
         }`}>
           {ticket.status}
         </span>
       </div>
-      <p className="text-sm text-gray-600 mb-2">{ticket.client_email}</p>
-      <p className="text-sm text-gray-800 mb-3 line-clamp-2">
+      <p className="text-sm text-primary-600 mb-2">{ticket.client_email}</p>
+      <p className="text-sm text-primary-800 mb-3 line-clamp-2">
         {ticket.event_summary}
       </p>
       <div className="flex justify-between items-center">
-        <span className="text-xs text-gray-500">
+        <span className="text-xs text-primary-300">
           {new Date(ticket.created_at).toLocaleDateString('he-IL')}
         </span>
         <div className="flex space-x-2">
           {ticket.status === 'New' && (
             <button
               onClick={() => updateTicketStatus(ticket.id, 'Reviewed')}
-              className="text-xs bg-blue-600 text-white px-2 py-1 rounded hover:bg-blue-700"
+              className="text-xs bg-primary-600 text-white px-2 py-1 rounded hover:bg-primary-700"
             >
               סמן כנבדק
             </button>
@@ -112,26 +112,26 @@ const AdminDashboard = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen bg-background-300 flex items-center justify-center">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-600"></div>
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-background-300">
       {/* Header */}
       <header className="bg-white shadow-sm border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
-            <h1 className="text-2xl font-bold text-gray-900">
+            <h1 className="text-2xl font-bold text-primary-900">
               {t('admin.dashboard')}
             </h1>
             <div className="flex items-center space-x-4">
-              <span className="text-gray-700">שלום, {user?.full_name}</span>
+              <span className="text-primary-700">שלום, {user?.full_name}</span>
               <button
                 onClick={logout}
-                className="text-gray-500 hover:text-gray-700"
+                className="text-primary-300 hover:text-primary-700"
               >
                 {t('logout')}
               </button>
@@ -162,14 +162,14 @@ const AdminDashboard = () => {
 
         {/* Tabs */}
         <div className="bg-white rounded-lg shadow">
-          <div className="border-b border-gray-200">
+          <div className="border-b border-primary-200">
             <nav className="-mb-px flex">
               <button
                 onClick={() => setActiveTab('tickets')}
                 className={`py-4 px-6 text-sm font-medium border-b-2 ${
                   activeTab === 'tickets'
                     ? 'border-primary-500 text-primary-600'
-                    : 'border-transparent text-gray-500 hover:text-gray-700'
+                    : 'border-transparent text-primary-300 hover:text-primary-700'
                 }`}
               >
                 {t('admin.tickets')} ({tickets.length})
@@ -179,7 +179,7 @@ const AdminDashboard = () => {
                 className={`py-4 px-6 text-sm font-medium border-b-2 ${
                   activeTab === 'clients'
                     ? 'border-primary-500 text-primary-600'
-                    : 'border-transparent text-gray-500 hover:text-gray-700'
+                    : 'border-transparent text-primary-300 hover:text-primary-700'
                 }`}
               >
                 {t('admin.clients')} ({chatUsers.length})
@@ -192,7 +192,7 @@ const AdminDashboard = () => {
               <div>
                 <h3 className="text-lg font-medium mb-4">פניות אחרונות</h3>
                 {tickets.length === 0 ? (
-                  <p className="text-gray-500 text-center py-8">אין פניות</p>
+                  <p className="text-primary-300 text-center py-8">אין פניות</p>
                 ) : (
                   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                     {tickets.map(ticket => (
@@ -207,15 +207,15 @@ const AdminDashboard = () => {
               <div>
                 <h3 className="text-lg font-medium mb-4">לקוחות פעילים</h3>
                 {chatUsers.length === 0 ? (
-                  <p className="text-gray-500 text-center py-8">אין לקוחות פעילים</p>
+                  <p className="text-primary-300 text-center py-8">אין לקוחות פעילים</p>
                 ) : (
                   <div className="space-y-4">
                     {chatUsers.map(client => (
-                      <div key={client.id} className="bg-gray-50 rounded-lg p-4 flex justify-between items-center">
+                      <div key={client.id} className="bg-background-300 rounded-lg p-4 flex justify-between items-center">
                         <div>
                           <h4 className="font-medium">{client.full_name}</h4>
-                          <p className="text-sm text-gray-600">{client.email}</p>
-                          <p className="text-xs text-gray-500">
+                          <p className="text-sm text-primary-600">{client.email}</p>
+                          <p className="text-xs text-primary-300">
                             {client.message_count} הודעות | 
                             آخر הודעה: {new Date(client.last_message_at).toLocaleDateString('he-IL')}
                           </p>

@@ -1,98 +1,469 @@
 /* frontend/src/index.css */
+/* Path: frontend/src/index.css */
+/* DESIGN SYSTEM USING ONLY 4 COLORS: #1A0088, #FF5E32, #B6CF4F, #EFE7D4 */
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* =============================================================================
+   BASE STYLES - Typography & Global Resets
+   Uses PRIMARY (#1A0088) shades for all text
+   ============================================================================= */
 @layer base {
   html {
     font-family: 'Geist', system-ui, sans-serif;
+    scroll-behavior: smooth;
   }
 
   body {
-    @apply bg-neutral-50 text-neutral-700;
+    @apply bg-background-300 text-primary-900;
   }
 
-  /* Serif headings */
-  h1, h2, h3 {
+  h1, h2, h3, h4, h5, h6 {
     font-family: 'Playfair Display', Georgia, serif;
+    @apply text-primary-800;
+  }
+  
+  /* Links default to primary color */
+  a {
+    @apply text-primary-600;
   }
 }
 
+/* =============================================================================
+   COMPONENT LAYER - Using ONLY your 4 colors
+   ============================================================================= */
 @layer components {
+  
+  /* ---------------------------------------------------------------------------
+     BUTTONS - All variants use your 4 colors
+     --------------------------------------------------------------------------- */
   .btn {
-    @apply px-4 py-2 rounded-md text-sm font-medium transition-all duration-150;
+    @apply px-4 py-2 rounded-md text-sm font-medium transition-all duration-150 
+           focus:outline-none focus:ring-2 focus:ring-offset-2;
   }
 
+  /* Primary Button - Deep Purple */
   .btn-primary {
-    @apply bg-primary-600 text-white hover:bg-primary-700 shadow-none;
+    @apply bg-primary-600 text-white hover:bg-primary-700 
+           focus:ring-primary-500 shadow-sm;
   }
 
+  /* Accent Button - Coral Orange (warnings, important actions) */
+  .btn-accent {
+    @apply bg-accent-500 text-white hover:bg-accent-600 
+           focus:ring-accent-400 shadow-sm;
+  }
+
+  /* Success Button - Lime Green */
+  .btn-success {
+    @apply bg-success-500 text-primary-900 hover:bg-success-600 
+           focus:ring-success-400 shadow-sm;
+  }
+
+  /* Outline Button - Purple border on cream */
   .btn-outline {
-    @apply bg-white border border-neutral-200 text-neutral-800 hover:border-neutral-300 hover:bg-neutral-50;
+    @apply bg-white border-2 border-primary-300 text-primary-700 
+           hover:border-primary-600 hover:text-primary-600 
+           focus:ring-primary-500;
   }
 
+  /* Ghost Button - Minimal purple text */
   .btn-ghost {
-    @apply bg-transparent text-neutral-600 hover:text-neutral-900;
+    @apply bg-transparent text-primary-600 hover:text-primary-700 
+           hover:bg-primary-50 focus:ring-primary-500;
   }
 
+  /* ---------------------------------------------------------------------------
+     CARDS - Container components
+     --------------------------------------------------------------------------- */
   .card {
-    @apply bg-white border border-neutral-200 rounded-lg p-6;
+    @apply bg-white border border-primary-200 rounded-lg p-6 shadow-xs;
   }
 
   .card-hover {
-    @apply bg-white border border-neutral-200 rounded-lg p-6 hover:shadow-sm transition-shadow duration-150;
+    @apply card hover:shadow-md hover:border-primary-300 
+           transition-all duration-200;
   }
 
+  /* Card with primary background */
+  .card-primary {
+    @apply card border-primary-300 bg-primary-50;
+  }
+  
+  /* Card with cream background */
+  .card-cream {
+    @apply card border-primary-200 bg-background-300;
+  }
+
+  /* ---------------------------------------------------------------------------
+     FORM INPUTS - Text fields, textareas, selects
+     --------------------------------------------------------------------------- */
   .input {
-    @apply w-full px-3 py-2 border border-neutral-200 rounded-md text-base text-neutral-900 bg-white
-           placeholder-neutral-400 focus:border-neutral-900 focus:shadow-xs focus:outline-none
-           transition-all duration-150;
+    @apply w-full px-3 py-2 border border-primary-200 rounded-md 
+           text-base text-primary-900 bg-white placeholder-primary-300
+           focus:border-primary-600 focus:ring-2 focus:ring-primary-100 
+           focus:outline-none transition-all duration-150;
   }
 
+  .textarea {
+    @apply input resize-none;
+  }
+
+  .select {
+    @apply input appearance-none bg-no-repeat bg-right cursor-pointer;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%231A0088'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+    background-size: 1.5em;
+    padding-right: 2.5rem;
+  }
+
+  /* Input with error state - Coral */
+  .input-error {
+    @apply input border-accent-500 focus:border-accent-600 
+           focus:ring-accent-100;
+  }
+
+  /* Input with success state - Lime */
+  .input-success {
+    @apply input border-success-500 focus:border-success-600 
+           focus:ring-success-100;
+  }
+
+  /* ---------------------------------------------------------------------------
+     LABELS - Form field labels using purple text
+     --------------------------------------------------------------------------- */
   .label {
-    @apply block text-xs font-medium text-neutral-500 uppercase tracking-wider mb-1.5;
+    @apply block text-xs font-medium text-primary-700 
+           uppercase tracking-wider mb-1.5;
   }
 
+  .label-required::after {
+    content: ' *';
+    @apply text-accent-500;
+  }
+
+  /* ---------------------------------------------------------------------------
+     ALERTS & NOTIFICATIONS - Using your 4 colors
+     --------------------------------------------------------------------------- */
   .alert {
-    @apply rounded-md px-4 py-3 text-sm;
+    @apply rounded-md px-4 py-3 text-sm font-medium 
+           border-l-4 flex items-start gap-3;
   }
 
-  .alert-success {
-    @apply bg-green-50 border border-green-200 text-green-800;
-  }
-
+  /* Error Alert - Coral */
   .alert-error {
-    @apply bg-red-50 border border-red-200 text-red-800;
+    @apply bg-accent-50 border-accent-500 text-accent-900;
   }
 
+  /* Success Alert - Lime */
+  .alert-success {
+    @apply bg-success-50 border-success-500 text-success-900;
+  }
+
+  /* Info Alert - Deep Purple */
+  .alert-info {
+    @apply bg-primary-50 border-primary-600 text-primary-900;
+  }
+
+  /* Warning Alert - Coral (same as error) */
+  .alert-warning {
+    @apply alert-error;
+  }
+
+  /* ---------------------------------------------------------------------------
+     BADGES - Status indicators using your 4 colors
+     --------------------------------------------------------------------------- */
   .badge {
-    @apply inline-flex items-center text-xs font-medium px-2 py-0.5 rounded-full;
+    @apply inline-flex items-center text-xs font-medium 
+           px-2.5 py-0.5 rounded-full;
   }
 
+  /* Status: New - Deep Purple */
   .badge-new {
-    @apply bg-blue-50 text-blue-700 border border-blue-200;
+    @apply bg-primary-100 text-primary-800 border border-primary-200;
   }
 
+  /* Status: In Progress - Coral */
+  .badge-progress {
+    @apply bg-accent-100 text-accent-800 border border-accent-200;
+  }
+
+  /* Status: Completed - Lime */
+  .badge-complete {
+    @apply bg-success-100 text-success-800 border border-success-200;
+  }
+
+  /* Status: Neutral/Closed - Light Purple */
+  .badge-neutral {
+    @apply bg-primary-50 text-primary-700 border border-primary-100;
+  }
+
+  /* Backward compatibility */
   .badge-reviewed {
-    @apply bg-amber-50 text-amber-700 border border-amber-200;
+    @apply badge-progress;
   }
 
   .badge-closed {
-    @apply bg-neutral-100 text-neutral-500 border border-neutral-200;
+    @apply badge-neutral;
+  }
+
+  /* ---------------------------------------------------------------------------
+     BANNERS - Full-width notification banners (animated)
+     --------------------------------------------------------------------------- */
+  .banner {
+    @apply fixed top-0 left-0 w-full z-50 
+           flex items-center gap-4 px-6 py-4 
+           text-white font-semibold shadow-lg
+           transform transition-all duration-500;
+  }
+
+  .banner-error {
+    @apply banner bg-accent-500;
+  }
+
+  .banner-success {
+    @apply banner bg-success-600 text-primary-900;
+  }
+
+  .banner-info {
+    @apply banner bg-primary-600;
+  }
+
+  /* Banner states */
+  .banner:not(.visible) {
+    @apply -translate-y-full opacity-0;
+  }
+
+  .banner.visible {
+    @apply translate-y-0 opacity-100 animate-slide-down;
+  }
+
+  .banner-close {
+    @apply ml-auto p-2 rounded-md cursor-pointer 
+           hover:bg-white/20 transition-colors;
+  }
+
+  /* ---------------------------------------------------------------------------
+     COOKIE CONSENT BANNER
+     --------------------------------------------------------------------------- */
+  .cookie-banner {
+    @apply fixed bottom-4 right-4 z-50 
+           max-w-sm bg-white rounded-lg shadow-xl p-6
+           border-2 border-primary-200 animate-fade-in;
+  }
+
+  .cookie-banner-icon {
+    @apply w-12 h-12 mx-auto mb-3 text-accent-500;
+  }
+
+  .cookie-banner-text {
+    @apply text-sm text-primary-800 leading-relaxed mb-4;
+  }
+
+  .cookie-banner-actions {
+    @apply flex items-center justify-between gap-3;
+  }
+
+  /* ---------------------------------------------------------------------------
+     LOADING STATES - Purple spinner
+     --------------------------------------------------------------------------- */
+  .spinner {
+    @apply animate-spin rounded-full border-2 border-primary-100 
+           border-t-primary-600;
+  }
+
+  .spinner-sm {
+    @apply spinner h-4 w-4;
+  }
+
+  .spinner-md {
+    @apply spinner h-8 w-8;
+  }
+
+  .spinner-lg {
+    @apply spinner h-12 w-12;
+  }
+
+  /* ---------------------------------------------------------------------------
+     LINKS - Purple links
+     --------------------------------------------------------------------------- */
+  .link {
+    @apply text-primary-600 hover:text-primary-700 
+           underline-offset-2 hover:underline 
+           transition-colors;
+  }
+
+  .link-accent {
+    @apply text-accent-500 hover:text-accent-600 
+           underline-offset-2 hover:underline 
+           transition-colors;
+  }
+
+  /* ---------------------------------------------------------------------------
+     DIVIDERS - Purple dividers
+     --------------------------------------------------------------------------- */
+  .divider {
+    @apply border-t border-primary-200 my-6;
+  }
+
+  .divider-accent {
+    @apply border-t-2 border-accent-300 my-6;
+  }
+
+  /* ---------------------------------------------------------------------------
+     TOOLTIPS
+     --------------------------------------------------------------------------- */
+  .tooltip {
+    @apply absolute z-10 px-3 py-2 text-xs font-medium 
+           text-white bg-primary-800 rounded-md shadow-lg
+           opacity-0 transition-opacity pointer-events-none;
+  }
+
+  .tooltip.visible {
+    @apply opacity-100;
+  }
+
+  /* ---------------------------------------------------------------------------
+     MODALS & OVERLAYS
+     --------------------------------------------------------------------------- */
+  .modal-overlay {
+    @apply fixed inset-0 z-40 bg-primary-900/50 
+           backdrop-blur-sm animate-fade-in;
+  }
+
+  .modal {
+    @apply fixed inset-0 z-50 flex items-center justify-center 
+           p-4 animate-fade-in;
+  }
+
+  .modal-content {
+    @apply bg-white rounded-xl shadow-xl max-w-2xl w-full 
+           max-h-[90vh] overflow-y-auto p-6 border-2 border-primary-200;
+  }
+
+  /* ---------------------------------------------------------------------------
+     CHAT MESSAGES
+     --------------------------------------------------------------------------- */
+  .message {
+    @apply max-w-xs lg:max-w-md px-4 py-2 rounded-lg 
+           text-sm break-words;
+  }
+
+  .message-client {
+    @apply message bg-primary-600 text-white;
+  }
+
+  .message-admin {
+    @apply message bg-background-300 text-primary-900 border border-primary-200;
+  }
+
+  .message-timestamp {
+    @apply text-xs mt-1 opacity-70;
+  }
+  
+  /* ---------------------------------------------------------------------------
+     TABLES
+     --------------------------------------------------------------------------- */
+  .table {
+    @apply w-full border-collapse;
+  }
+  
+  .table thead {
+    @apply bg-primary-50 border-b-2 border-primary-300;
+  }
+  
+  .table th {
+    @apply px-4 py-3 text-left text-xs font-semibold text-primary-800 uppercase tracking-wider;
+  }
+  
+  .table td {
+    @apply px-4 py-3 text-sm text-primary-900 border-b border-primary-100;
+  }
+  
+  .table tbody tr:hover {
+    @apply bg-primary-50;
+  }
+  
+  /* ---------------------------------------------------------------------------
+     NAVIGATION
+     --------------------------------------------------------------------------- */
+  .nav-link {
+    @apply px-3 py-2 text-sm font-medium text-primary-700 
+           hover:text-primary-900 hover:bg-primary-50 
+           rounded-md transition-colors;
+  }
+  
+  .nav-link-active {
+    @apply nav-link bg-primary-100 text-primary-900;
   }
 }
 
-/* RTL -- keep these, they are still needed */
-[dir="rtl"] {
-  text-align: right;
+/* =============================================================================
+   UTILITIES LAYER - Helper classes using your 4 colors
+   ============================================================================= */
+@layer utilities {
+  /* RTL Support */
+  [dir="rtl"] {
+    text-align: right;
+  }
+
+  [dir="rtl"] .space-x-2 > * + * {
+    margin-right: 0.5rem;
+    margin-left: 0;
+  }
+
+  [dir="rtl"] .space-x-4 > * + * {
+    margin-right: 1rem;
+    margin-left: 0;
+  }
+
+  /* Text utilities */
+  .text-brand-primary {
+    @apply text-primary-600;
+  }
+
+  .text-brand-accent {
+    @apply text-accent-500;
+  }
+
+  .text-brand-success {
+    @apply text-success-500;
+  }
+
+  /* Background utilities */
+  .bg-brand-primary {
+    @apply bg-primary-600;
+  }
+
+  .bg-brand-accent {
+    @apply bg-accent-500;
+  }
+
+  .bg-brand-success {
+    @apply bg-success-500;
+  }
+
+  .bg-brand-cream {
+    @apply bg-background-300;
+  }
+
+  /* Border utilities */
+  .border-brand-primary {
+    @apply border-primary-600;
+  }
+
+  .border-brand-accent {
+    @apply border-accent-500;
+  }
+
+  .border-brand-success {
+    @apply border-success-500;
+  }
+  
+  /* Disabled state */
+  .disabled {
+    @apply opacity-50 cursor-not-allowed pointer-events-none;
+  }
 }
 
-[dir="rtl"] .space-x-2 > * + * {
-  margin-right: 0.5rem;
-  margin-left: 0;
-}
-
-[dir="rtl"] .space-x-4 > * + * {
-  margin-right: 1rem;
-  margin-left: 0;
-}

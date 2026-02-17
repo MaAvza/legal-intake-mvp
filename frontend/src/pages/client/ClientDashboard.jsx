@@ -26,19 +26,19 @@ const ClientDashboard = () => {
   }, [])
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-background-300">
       {/* Header */}
       <header className="bg-white shadow-sm border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-4">
-            <h1 className="text-2xl font-bold text-gray-900">
+            <h1 className="text-2xl font-bold text-primary-900">
               {t('client.dashboard')}
             </h1>
             <div className="flex items-center space-x-4">
-              <span className="text-gray-700">שלום, {user?.full_name}</span>
+              <span className="text-primary-700">שלום, {user?.full_name}</span>
               <button
                 onClick={logout}
-                className="text-gray-500 hover:text-gray-700"
+                className="text-primary-300 hover:text-primary-700"
               >
                 {t('logout')}
               </button>
@@ -51,7 +51,7 @@ const ClientDashboard = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {/* Quick Actions */}
           <div className="bg-white rounded-lg shadow p-6">
-            <h2 className="text-xl font-bold mb-4 text-gray-800">
+            <h2 className="text-xl font-bold mb-4 text-primary-800">
               {t('client.quickActions')}
             </h2>
             <div className="space-y-3">
@@ -63,7 +63,7 @@ const ClientDashboard = () => {
               </Link>
               <Link
                 to="/client/profile"
-                className="block w-full bg-gray-200 text-gray-800 text-center py-3 px-4 rounded-lg hover:bg-gray-300 transition-colors"
+                className="block w-full bg-primary-100 text-primary-800 text-center py-3 px-4 rounded-lg hover:bg-gray-300 transition-colors"
               >
                 {t('client.editProfile')}
               </Link>
@@ -72,7 +72,7 @@ const ClientDashboard = () => {
 
           {/* Recent Activity */}
           <div className="bg-white rounded-lg shadow p-6">
-            <h2 className="text-xl font-bold mb-4 text-gray-800">
+            <h2 className="text-xl font-bold mb-4 text-primary-800">
               {t('client.recentActivity')}
             </h2>
             {loading ? (
@@ -83,17 +83,17 @@ const ClientDashboard = () => {
               <div className="space-y-3">
                 {recentMessages.map((message) => (
                   <div key={message.id} className="border-b pb-2">
-                    <p className="text-sm text-gray-600 truncate">
+                    <p className="text-sm text-primary-600 truncate">
                       {message.message}
                     </p>
-                    <p className="text-xs text-gray-400">
+                    <p className="text-xs text-primary-300">
                       {new Date(message.created_at).toLocaleDateString('he-IL')}
                     </p>
                   </div>
                 ))}
               </div>
             ) : (
-              <p className="text-gray-500 text-center py-4">
+              <p className="text-primary-300 text-center py-4">
                 אין הודעות אחרונות
               </p>
             )}
@@ -101,20 +101,20 @@ const ClientDashboard = () => {
 
           {/* Account Info */}
           <div className="bg-white rounded-lg shadow p-6">
-            <h2 className="text-xl font-bold mb-4 text-gray-800">
+            <h2 className="text-xl font-bold mb-4 text-primary-800">
               פרטי חשבון
             </h2>
             <div className="space-y-2">
               <div>
-                <span className="text-sm text-gray-600">שם:</span>
+                <span className="text-sm text-primary-600">שם:</span>
                 <p className="font-medium">{user?.full_name}</p>
               </div>
               <div>
-                <span className="text-sm text-gray-600">אימייל:</span>
+                <span className="text-sm text-primary-600">אימייל:</span>
                 <p className="font-medium">{user?.email}</p>
               </div>
               <div>
-                <span className="text-sm text-gray-600">תאריך הצטרפות:</span>
+                <span className="text-sm text-primary-600">תאריך הצטרפות:</span>
                 <p className="font-medium">
                   {new Date(user?.created_at).toLocaleDateString('he-IL')}
                 </p>

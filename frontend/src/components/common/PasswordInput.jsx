@@ -48,9 +48,9 @@ const PasswordInput = ({
 
   const getStrengthColor = () => {
     const strength = 6 - errors.length
-    if (strength <= 2) return 'text-red-600'
+    if (strength <= 2) return 'text-accent-600'
     if (strength <= 4) return 'text-yellow-600'
-    return 'text-green-600'
+    return 'text-success-600'
   }
 
   const getStrengthText = () => {
@@ -64,7 +64,7 @@ const PasswordInput = ({
 
   return (
     <div>
-      <label className="block text-sm font-medium text-gray-700 mb-2">
+      <label className="block text-sm font-medium text-primary-700 mb-2">
         {label} {required && '*'}
       </label>
       
@@ -75,13 +75,13 @@ const PasswordInput = ({
           value={value}
           onChange={handleChange}
           required={required}
-          className="w-full px-4 py-2 pr-10 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
+          className="w-full px-4 py-2 pr-10 border border-primary-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-transparent"
         />
         
         <button
           type="button"
           onClick={() => setShowPassword(!showPassword)}
-          className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
+          className="absolute left-3 top-1/2 -translate-y-1/2 text-primary-300 hover:text-primary-700"
         >
           {showPassword ? (
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -99,17 +99,17 @@ const PasswordInput = ({
       {showStrength && value && (
         <div className="mt-2">
           <div className="flex items-center gap-2 mb-1">
-            <span className="text-xs text-gray-500">Strength:</span>
+            <span className="text-xs text-primary-300">Strength:</span>
             <span className={`text-xs font-medium ${getStrengthColor()}`}>
               {getStrengthText()}
             </span>
           </div>
           
           {errors.length > 0 && (
-            <div className="text-xs text-gray-600 space-y-0.5">
+            <div className="text-xs text-primary-600 space-y-0.5">
               <p className="font-medium">Required:</p>
               {errors.map((error, idx) => (
-                <p key={idx} className="text-red-600">• {error}</p>
+                <p key={idx} className="text-accent-600">• {error}</p>
               ))}
             </div>
           )}
